@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const util = require('util');
@@ -10,24 +9,12 @@ const verifyToken = util.promisify(jwt.verify);
 const secretKey = process.env.JWT_SECRET || 'dfjekfhejhrkjherk';
 const saltRounds = process.env.SALT_ROUNDS || 7;
 
-const userSchema = new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
     role: {
         type: String,
         enum: ['user', 'admin'],
         lowercase: true,
-        default: 'user'
-    },
-    firstname: {
-        type: String,
-        required: true,
-        lowercase: true,
-        minlength: 3
-    },
-    lastname: {
-        type: String,
-        required: true,
-        lowercase: true,
-        minlength: 3
+        default: 'admin'
     },
     username: {
         type: String,
@@ -36,20 +23,11 @@ const userSchema = new mongoose.Schema({
         unique: true,
         minlength: 3
     },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        validate: validator.isEmail
-    },
     password: {
         type: String,
         required: true,
         hidden: true
 
-    },
-    photo: {
-        type: String
     },
     listOfBooks: [{
         bookId: {
@@ -70,24 +48,24 @@ const userSchema = new mongoose.Schema({
 
 const hashPassword = (password) => bcrypt.hash(password, saltRounds);
 
-userSchema.method('verifyPassword', function (password) {
+adminSchema.method('verifyPassword', function (password) {
     const currentUser = this;
     return bcrypt.compare(password, currentUser.password);
 })
 
-userSchema.static('verifyToken', async function (token) {
+adminSchema.static('verifyToken', async function (token) {
     const userModel = this;
     const decoded = await verifyToken(token, secretKey);
     const userId = decoded._id;
     return userModel.findById(userId);
 })
 
-userSchema.method('generateToken', function () {
+adminSchema.method('generateToken', function () {
     const currentUser = this;
     return signPromise({ _id: currentUser._id }, secretKey, { expiresIn: '2h' })
 })
 
-userSchema.pre('save', async function () {
+adminSchema.pre('save', async function () {
     const currentUser = this;
     debugger;
     if (currentUser.isNew) {
@@ -95,6 +73,6 @@ userSchema.pre('save', async function () {
     }
 });
 
-const userModel = mongoose.model('User', userSchema);
+const adminModel = mongoose.model('Admin', userSchema);
 
-module.exports = userModel;
+module.exports = adminModel;
