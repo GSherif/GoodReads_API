@@ -4,18 +4,12 @@ const createError = require('http-errors');
 const cors = require('cors');
 const logger = require('morgan');
 require('./db');
-const cors = require('cors');
 
 const app = express();
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authorsRouter = require('./routes/authors');
-
-
-const app = express();
-
-
 const BookRouter = require('./routes/Book');
 
 app.use(cors());
