@@ -5,11 +5,13 @@ const bookModel = require('../models/book');
 
 /* GET book listing. */
 router.get('/', function (req, res, next) {
-  bookModel.find({ Deleted: false }).then((booksData) => {
-    res.send(booksData);
-  }).catch((err) => {
-    next(createError(400, err));
-  });
+  bookModel.find({ deleted: false })
+    .then((booksData) => {
+      console.log(booksData);
+      res.send(booksData);
+    }).catch((err) => {
+      next(createError(400, err));
+    });
 });
 
 //add new book
@@ -18,11 +20,12 @@ router.post('/add', function (req, res, next) {
     .then((bookData) => {
       res.send(booksData);
     }).catch((err) => {
-      next(createError(400, err.message));
+      next(createError(500, err.message));
     });
 });
 
 //get book details
+//hnst5dm populate hna
 router.get('/:bookId/details', function (req, res, next) {
   let id = req.params.bookId;
   console.log(req.body);
