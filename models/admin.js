@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const util = require('util');
-const Schema = mongoose.Schema;
 
 const signPromise = util.promisify(jwt.sign);
 const verifyToken = util.promisify(jwt.verify);
@@ -28,15 +27,7 @@ const adminSchema = new mongoose.Schema({
         required: true,
         hidden: true
 
-    },
-    listOfBooks: [{
-        bookId: {
-            type: Schema.Types.ObjectId, ref: 'Book'
-        },
-        shelveId: {
-            type: Schema.Types.ObjectId, ref: 'Shelve'
-        }
-    }]
+    }
 }, {
         toJSON: {
             transform: (doc, ret, options) => {
@@ -73,6 +64,6 @@ adminSchema.pre('save', async function () {
     }
 });
 
-const adminModel = mongoose.model('Admin', userSchema);
+const adminModel = mongoose.model('Admin', adminSchema);
 
 module.exports = adminModel;

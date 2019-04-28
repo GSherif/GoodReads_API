@@ -8,6 +8,7 @@ require('./db');
 const app = express();
 
 const indexRouter = require('./routes/index');
+const adminRouter = require('./routes/admin')
 const usersRouter = require('./routes/users');
 const authorsRouter = require('./routes/authors');
 const BookRouter = require('./routes/Book');
@@ -20,6 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', indexRouter);
+app.use('/api/admin', adminRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/authors', authorsRouter);
 
