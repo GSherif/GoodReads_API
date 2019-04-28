@@ -7,6 +7,7 @@ require('./db');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const BookRouter = require('./routes/Book');
 const app = express();
 
 app.use(logger('dev'));
@@ -17,6 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', indexRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/books', BookRouter);
 
 // not found middleware
 app.use(function (req, res, next) {
