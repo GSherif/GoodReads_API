@@ -57,5 +57,4 @@ router.get('/', function (req, res, next) {
     .catch(err => next.createError(500, err.message))
 });
 
-
 module.exports = router;
