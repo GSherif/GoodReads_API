@@ -3,12 +3,16 @@ const path = require('path');
 const createError = require('http-errors');
 const logger = require('morgan');
 require('./db');
+const cors = require('cors');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const authersRouter = require('./routes/authers');
+
 
 const app = express();
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -16,6 +20,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/authers', authersRouter);
+
 
 // not found middleware
 app.use(function (req, res, next) {

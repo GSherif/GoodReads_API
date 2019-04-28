@@ -14,13 +14,14 @@ const autherSchema = new mongoose.Schema({
         lowercase: true,
         minlength: 3
     },
-    job:{
-      type:String,
+    birthdate: {
+        type: Date,
     },
-    photo: {
+    photourl: {
         type: String,
     },
-    
+    books: [{ type: Schema.Types.ObjectId, ref: 'Book' }]
+
 });
 
 const autherModel = mongoose.model('Auther', autherSchema)
