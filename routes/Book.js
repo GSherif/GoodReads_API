@@ -52,7 +52,6 @@ router.patch('/:bookId/edit', function (req, res, next) {
     });
 });
 
-
 //delete a book
 router.patch('/:bookId/delete', function (req, res, next) {
   let id = req.params.bookId;
