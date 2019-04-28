@@ -22,6 +22,18 @@ router.post('/add', function (req, res, next) {
     });
 });
 
+//get book details
+router.get('/:bookId/details', function (req, res, next) {
+  let id = req.params.bookId;
+  console.log(req.body);
+  bookModel.find({ _id: id })
+    .then((bookData) => {
+      res.send(booksData);
+    }).catch((err) => {
+      next(createError(400, err.message));
+    });
+});
+
 //edit existing book
 router.patch('/:bookId/edit', function (req, res, next) {
   let id = req.params.bookId;
@@ -40,13 +52,15 @@ router.patch('/:bookId/edit', function (req, res, next) {
     });
 });
 
+
 //delete a book
-router.delete('/:bookId/delete', function (req, res, next) {
+router.patch('/:bookId/delete', function (req, res, next) {
   let id = req.params.bookId;
   console.log(req.body);
-  bookModel.deleteOne({ _id: id })
+  bookModel.updateOne({ _id: id }, { Delete: true })
     .then((result) => {
       console.log(result);
+      res.redirect('api/books/');
     }).catch((err) => {
       next(createError(400, err.message));
     });
@@ -75,4 +89,6 @@ router.get('/:authorID/books', function (req, res, next) {
       next(createError(400, err.message));
     });
 });
+
+
 module.exports = router;
