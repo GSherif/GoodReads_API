@@ -14,6 +14,16 @@ router.get('/', function (req, res, next) {
         });
 });
 
+router.post('/add', function (req, res, next) {
+    categoryModel.create(res.body)
+        .then((result) => {
+            console.log(result);
+            res.send(result);
+        }).catch((err) => {
+            next(createError(500, err));
+        });
+});
+
 
 
 module.exports = router;

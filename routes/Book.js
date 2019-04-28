@@ -16,6 +16,7 @@ router.get('/', function (req, res, next) {
 
 //add new book
 router.post('/add', function (req, res, next) {
+  console.log(req.body);
   bookModel.create(req.body)
     .then((bookData) => {
       res.send(booksData);
