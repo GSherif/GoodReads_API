@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
       console.log(booksData);
       res.send(booksData);
     }).catch((err) => {
-      next(createError(400, err));
+      next(createError(500, err));
     });
 });
 
@@ -20,7 +20,7 @@ router.post('/add', function (req, res, next) {
     .then((bookData) => {
       res.send(booksData);
     }).catch((err) => {
-      next(createError(500, err.message));
+      next(createError(400, err.message));
     });
 });
 
@@ -29,8 +29,9 @@ router.post('/add', function (req, res, next) {
 router.get('/:bookId/details', function (req, res, next) {
   let id = req.params.bookId;
   console.log(req.body);
-  bookModel.find({ _id: id })
+  bookModel.find({ _id: id }).populate('authorId').populate('categoryId')
     .then((bookData) => {
+      console.log(bookData);
       res.send(booksData);
     }).catch((err) => {
       next(createError(400, err.message));

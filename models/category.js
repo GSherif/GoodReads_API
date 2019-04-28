@@ -10,7 +10,7 @@ const categorySchema = new mongoose.Schema({
 		unique: true,
 	},
 
-	books: [{ type: Schema.Types.ObjectId, ref: 'Book' }]
+	books: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }]
 
 });
 
