@@ -12,6 +12,7 @@ const adminRouter = require('./routes/admin')
 const usersRouter = require('./routes/users');
 const authorsRouter = require('./routes/authors');
 const BookRouter = require('./routes/Book');
+const CategoryRouter = require('./routes/category');
 
 app.use(cors());
 app.use(logger('dev'));
@@ -27,6 +28,8 @@ app.use('/api/authors', authorsRouter);
 
 
 app.use('/api/books', BookRouter);
+app.use('/api/categories', CategoryRouter);
+app.use('/api/:categoryId', usersRouter);
 
 // not found middleware
 app.use(function (req, res, next) {

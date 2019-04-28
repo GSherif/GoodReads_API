@@ -5,17 +5,34 @@ const bookModel = require('../models/book');
 
 /* GET book listing. */
 router.get('/', function (req, res, next) {
-  bookModel.find({ Deleted: false }).then((booksData) => {
-    res.send(booksData);
-  }).catch((err) => {
-    next(createError(400, err));
-  });
+  bookModel.find({ deleted: false })
+    .then((booksData) => {
+      console.log(booksData);
+      res.send(booksData);
+    }).catch((err) => {
+      next(createError(500, err));
+    });
 });
 
 //add new book
 router.post('/add', function (req, res, next) {
+  console.log(req.body);
   bookModel.create(req.body)
     .then((bookData) => {
+      res.send(booksData);
+    }).catch((err) => {
+      next(createError(400, err.message));
+    });
+});
+
+//get book details
+//hnst5dm populate hna
+router.get('/:bookId/details', function (req, res, next) {
+  let id = req.params.bookId;
+  console.log(req.body);
+  bookModel.find({ _id: id }).populate('authorId').populate('categoryId')
+    .then((bookData) => {
+      console.log(bookData);
       res.send(booksData);
     }).catch((err) => {
       next(createError(400, err.message));
@@ -41,12 +58,13 @@ router.patch('/:bookId/edit', function (req, res, next) {
 });
 
 //delete a book
-router.delete('/:bookId/delete', function (req, res, next) {
+router.patch('/:bookId/delete', function (req, res, next) {
   let id = req.params.bookId;
   console.log(req.body);
-  bookModel.deleteOne({ _id: id })
+  bookModel.updateOne({ _id: id }, { Delete: true })
     .then((result) => {
       console.log(result);
+      res.redirect('api/books/');
     }).catch((err) => {
       next(createError(400, err.message));
     });
@@ -75,4 +93,6 @@ router.get('/:authorID/books', function (req, res, next) {
       next(createError(400, err.message));
     });
 });
+
+
 module.exports = router;

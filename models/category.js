@@ -10,12 +10,11 @@ const categorySchema = new mongoose.Schema({
 		unique: true,
 	},
 
-	books: [{ type: Schema.Types.ObjectId, ref: 'Book' }]
+	books: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }]
 
 });
 
 
 
-const categoryModel = mongoose.model('Category', categorySchema)
+module.exports = mongoose.model('category', categorySchema)
 
-module.exports = categoryModel;
