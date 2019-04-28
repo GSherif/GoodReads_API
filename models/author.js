@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const autherSchema = new mongoose.Schema({
+const authorSchema = new mongoose.Schema({
     firstname: {
         type: String,
         required: true,
@@ -15,15 +15,19 @@ const autherSchema = new mongoose.Schema({
         minlength: 3
     },
     birthdate: {
-        type: Date,
+        type: String,
     },
     photourl: {
         type: String,
+    },
+    deleted: {
+        type: Boolean,
+        default: false
     },
     books: [{ type: Schema.Types.ObjectId, ref: 'Book' }]
 
 });
 
-const autherModel = mongoose.model('Auther', autherSchema)
+const authorModel = mongoose.model('Author', authorSchema)
 
-module.exports = autherModel;
+module.exports = authorModel;

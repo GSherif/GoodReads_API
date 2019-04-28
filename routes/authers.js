@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var createError = require('npm ');
+var createError = require('http-errors');
 const Auther = require('./../models/auther');
 
 router.post("/add", (req, res, next) => {
