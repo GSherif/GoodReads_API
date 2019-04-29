@@ -29,11 +29,8 @@ app.use('/api/authors', authorsRouter);
 
 app.use('/api/books', BookRouter);
 app.use('/api/categories', CategoryRouter);
-<<<<<<< HEAD
 app.use('/api/categories/:categoryId', CategoryRouter);
-=======
 // app.use('/api/:categoryId', usersRouter);
->>>>>>> 5d909c649ce78b7910f881f1ee269a2a67c7f1a6
 
 // not found middleware
 app.use(function (req, res, next) {
