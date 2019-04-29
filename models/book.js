@@ -24,6 +24,10 @@ const bookSchema = new mongoose.Schema({
 		ref: 'Author',
 		required: true,
 	},
+	deleted: {
+		type: Boolean,
+		default: false
+	}
 
 });
 

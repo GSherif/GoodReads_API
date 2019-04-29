@@ -6,8 +6,8 @@ const bookModel = require('../models/book');
 /* GET book listing. */
 router.get('/', function (req, res, next) {
   // debugger;
-  bookModel.find({})
-    // bookModel.find({ deleted: false })
+  // bookModel.find({})
+  bookModel.find({ deleted: false })
     .then((booksData) => {
       console.log(booksData);
       res.send(booksData);
@@ -64,12 +64,13 @@ router.patch('/:bookId/edit', function (req, res, next) {
 
 //delete a book
 router.patch('/:bookId/delete', function (req, res, next) {
+  debugger;
   let id = req.params.bookId;
-  console.log(req.body);
-  bookModel.updateOne({ _id: id }, { Delete: true })
+  // console.log(req.body);
+  bookModel.updateOne({ _id: id }, { deleted: true })
     .then((result) => {
-      console.log(result);
-      res.redirect('api/books/');
+      res.send(result);
+      // res.redirect('api/books/');
     }).catch((err) => {
       next(createError(400, err.message));
     });
