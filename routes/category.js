@@ -18,6 +18,7 @@ category.find()
     });
 });
 
+<<<<<<< HEAD
 });
 // Add Categories
 router.post('/',(req,res,next)=>{
@@ -66,6 +67,18 @@ router.patch('/:categoryId',(req,res,next)=>{
 //Delete Specific Category
 router.delete('/:categoryId',(req,res,next)=>{
     const Cid=req.params.categoryId;
+=======
+router.post('/add', function (req, res, next) {
+    categoryModel.create(res.body)
+        .then((result) => {
+            console.log(result);
+            res.send(result);
+        }).catch((err) => {
+            next(createError(500, err));
+        });
+});
+
+>>>>>>> b761fdc4db6bd5ac6df9071356b83c67b67ebaa5
 
     category.remove({id:Cid}).exec().then(c=>{
       res.status(200).json(c);
