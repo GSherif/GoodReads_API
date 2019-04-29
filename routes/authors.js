@@ -4,6 +4,9 @@ var createError = require('http-errors')
 const Author = require('./../models/author');
 const Book = require('./../models/book');
 
+const adminMiddleware = require('./../middlewares/adminAuthorization');
+
+router.use(adminMiddleware);
 ///////////////add
 router.post("/add", (req, res, next) => {
 	Author

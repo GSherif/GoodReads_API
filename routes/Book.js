@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 const createError = require('http-errors');
 const bookModel = require('../models/book');
+const adminMiddleware = require('./../middlewares/adminAuthorization');
 
+router.use(adminMiddleware);
 /* GET book listing. */
 router.get('/', function (req, res, next) {
   // debugger;

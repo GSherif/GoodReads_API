@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const category = require('../models/category');
+const adminMiddleware = require('./../middlewares/adminAuthorization');
+
+router.use(adminMiddleware);
 
 // Get Categories
 router.get('/', (req, res, next) => {
