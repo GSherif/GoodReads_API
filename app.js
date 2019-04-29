@@ -29,6 +29,7 @@ app.use('/api/authors', authorsRouter);
 
 app.use('/api/books', BookRouter);
 app.use('/api/categories', CategoryRouter);
+app.use('/api/categories/:categoryId', CategoryRouter);
 // app.use('/api/:categoryId', usersRouter);
 
 // not found middleware
