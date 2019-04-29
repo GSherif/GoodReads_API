@@ -6,7 +6,7 @@ const Book = require('./../models/book');
 
 const adminMiddleware = require('./../middlewares/adminAuthorization');
 
-router.use(adminMiddleware);
+// router.use(adminMiddleware);
 ///////////////add
 router.post("/add", (req, res, next) => {
 	Author
