@@ -5,7 +5,9 @@ const bookModel = require('../models/book');
 
 /* GET book listing. */
 router.get('/', function (req, res, next) {
-  bookModel.find({ deleted: false })
+  // debugger;
+  bookModel.find({})
+    // bookModel.find({ deleted: false })
     .then((booksData) => {
       console.log(booksData);
       res.send(booksData);
@@ -19,7 +21,7 @@ router.post('/add', function (req, res, next) {
   console.log(req.body);
   bookModel.create(req.body)
     .then((bookData) => {
-      res.send(booksData);
+      res.send(bookData);
     }).catch((err) => {
       next(createError(400, err.message));
     });
@@ -28,12 +30,12 @@ router.post('/add', function (req, res, next) {
 //get book details
 //hnst5dm populate hna
 router.get('/:bookId/details', function (req, res, next) {
+  // debugger;
   let id = req.params.bookId;
-  console.log(req.body);
   bookModel.find({ _id: id }).populate('authorId').populate('categoryId')
     .then((bookData) => {
       console.log(bookData);
-      res.send(booksData);
+      res.send(bookData);
     }).catch((err) => {
       next(createError(400, err.message));
     });
@@ -41,17 +43,20 @@ router.get('/:bookId/details', function (req, res, next) {
 
 //edit existing book
 router.patch('/:bookId/edit', function (req, res, next) {
+  debugger;
   let id = req.params.bookId;
   console.log(req.body);
-  bookModel.findOneAndUpdate({ _id: id },
+  bookModel.updateOne({ _id: id },
     {
-      title: req.body.title,
-      categoryId: req.body.categoryId,
-      autherId: req.body.autherId,
-      cover: req.body.cover
+      $set: {
+        title: req.body.title,
+        categoryId: req.body.categoryId,
+        autherId: req.body.autherId,
+        cover: req.body.cover
+      }
     })
     .then((bookData) => {
-      res.send(booksData);
+      res.send(bookData);
     }).catch((err) => {
       next(createError(400, err.message));
     });
@@ -83,16 +88,16 @@ router.get('/:CatId/books', function (req, res, next) {
 });
 
 //get books by author id
-router.get('/:authorID/books', function (req, res, next) {
-  let author = req.params.authorID;
-  console.log(req.body);
-  bookModel.find({ autherId: author })
-    .then((booksData) => {
-      res.send(booksData);
-    }).catch((err) => {
-      next(createError(400, err.message));
-    });
-});
+// router.get('/:authorID/books', function (req, res, next) {
+//   let author = req.params.authorID;
+//   console.log(req.body);
+//   bookModel.find({ autherId: author })
+//     .then((booksData) => {
+//       res.send(booksData);
+//     }).catch((err) => {
+//       next(createError(400, err.message));
+//     });
+// });
 
 
 module.exports = router;
