@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var createError = require('http-errors')
 const Author = require('./../models/author');
+const adminMiddleware = require('./../middlewares/adminAuthorization');
+
+router.use(adminMiddleware);
 ///////////////add
 router.post("/add", (req, res, next) => {
 	Author
