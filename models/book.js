@@ -12,7 +12,7 @@ const bookSchema = new mongoose.Schema({
 	},
 	cover: {
 		type: String,
-		required: true,
+		// required: true,
 	},
 	categoryId: {
 		type: mongoose.Schema.ObjectId,
