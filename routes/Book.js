@@ -5,9 +5,9 @@ const bookModel = require('../models/book');
 
 /* GET book listing. */
 router.get('/', function (req, res, next) {
-  // debugger;
+  debugger;
   // bookModel.find({})
-  bookModel.find({ deleted: false })
+  bookModel.find({ deleted: false }).populate('authorId').populate('categoryId')
     .then((booksData) => {
       console.log(booksData);
       res.send(booksData);
@@ -18,6 +18,7 @@ router.get('/', function (req, res, next) {
 
 //add new book
 router.post('/add', function (req, res, next) {
+  debugger;
   console.log(req.body);
   bookModel.create(req.body)
     .then((bookData) => {
@@ -32,8 +33,9 @@ router.post('/add', function (req, res, next) {
 router.get('/:bookId/details', function (req, res, next) {
   // debugger;
   let id = req.params.bookId;
-  bookModel.find({ _id: id }).populate('authorId').populate('categoryId')
+  bookModel.findOne({ _id: id }).populate('authorId').populate('categoryId')
     .then((bookData) => {
+      // debugger;
       console.log(bookData);
       res.send(bookData);
     }).catch((err) => {
@@ -100,5 +102,16 @@ router.get('/:CatId/books', function (req, res, next) {
 //     });
 // });
 
+//get by searchkey
+router.get('/search', function (req, res, next) {
+  let { serachKey } = req.body;
+  console.log(req.body);
+  bookModel.find({ "authors": { "$regex": serachKey, "$options": "i" } })
+    .then((booksData) => {
+      res.send(booksData.data);
+    }).catch((err) => {
+      next(createError(400, err.message));
+    });
+});
 
 module.exports = router;
