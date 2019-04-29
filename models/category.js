@@ -9,7 +9,6 @@ const categorySchema = new mongoose.Schema({
 		maxlength: 20,
 		unique: true,
 	},
-
 	books: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }]
 
 });

@@ -29,7 +29,7 @@ app.use('/api/authors', authorsRouter);
 
 app.use('/api/books', BookRouter);
 app.use('/api/categories', CategoryRouter);
-app.use('/api/:categoryId', usersRouter);
+app.use('/api/categories/:categoryId', CategoryRouter);
 
 // not found middleware
 app.use(function (req, res, next) {
