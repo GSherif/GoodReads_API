@@ -19,11 +19,15 @@ const bookSchema = new mongoose.Schema({
 		ref: 'Category',
 		required: true,
 	},
-	autherId: {
+	authorId: {
 		type: mongoose.Schema.ObjectId,
-		ref: 'Auther',
+		ref: 'Author',
 		required: true,
 	},
+	deleted: {
+		type: Boolean,
+		default: false
+	}
 
 });
 
